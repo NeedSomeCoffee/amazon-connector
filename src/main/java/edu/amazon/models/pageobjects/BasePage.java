@@ -6,23 +6,20 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class BasePage {
-	private WebDriver driver;
-		
+public class BasePage extends AbstractPage {		
 	@FindBy(id = "nav-link-accountList")
 	private WebElement loginPopup;
 	
 	@FindBy(css = "#nav-flyout-ya-newCust a")
 	private WebElement createAccountButton;
 	
+	private LogonChecker loginedChecker = new LogonChecker();
+	
 	public BasePage(WebDriver driver) {
-		this.driver = driver;
-		driver.get("https://www.amazon.com");
-		
+		super(driver, "https://amazon.com");		
 	}
 	
-	public RegistrationPage goToRegistrationPage() {
-		PageFactory.initElements(driver, this);
+	public RegistrationPage goToRegistrationPage() {		
 		Actions builder = new Actions(driver); 
 		
 		builder.moveToElement(loginPopup).build().perform();

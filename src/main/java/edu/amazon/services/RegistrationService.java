@@ -1,21 +1,28 @@
 package edu.amazon.services;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
-import edu.regparsing.models.Account;
-import edu.regparsing.models.pageobjects.BasePage;
-import edu.regparsing.models.pageobjects.MainPage;
-import edu.regparsing.models.pageobjects.RegistrationPage;
+import edu.amazon.exceptions.RegistrationException;
+import edu.amazon.models.Account;
+import edu.amazon.models.pageobjects.BasePage;
+import edu.amazon.models.pageobjects.MainPage;
+import edu.amazon.models.pageobjects.RegistrationPage;
+import edu.amazon.util.DriverProvider;
 
 public class RegistrationService {	
-	WebDriver driver = DriverProvider.getDriver();
+	private WebDriver driver = DriverProvider.getDriver();
 	
-	public void registerUser(Account account) {		
+	public MainPage registerUser(Account account) throws RegistrationException {	
+		
+		try{
 		BasePage startPage = new BasePage(driver);
 		RegistrationPage registration = startPage.goToRegistrationPage();
 		
-		MainPage main = registration.registerAccount(account);
+		return registration.registerAccount(account);
 		
-		main.skip();
+		} catch(NoSuchElementException e) {
+			throw new RegistrationException("Can't register user\n" + e.getMessage(), e);
+		}
 	}
 }

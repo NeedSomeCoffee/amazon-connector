@@ -45,7 +45,10 @@ public class Account {
 		builder.append(login);
 		builder.append(", password=");
 		builder.append(password);
+		builder.append(", email=");
+		builder.append(email);
 		builder.append("]");
 		return builder.toString();
-	}	
-}
+	}
+}	
+

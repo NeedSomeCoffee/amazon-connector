@@ -5,10 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import edu.regparsing.models.Account;
+import edu.amazon.models.Account;
 
-public class RegistrationPage {
-	private WebDriver driver;
+
+public class RegistrationPage extends AbstractPage {	
 	@FindBy(id = "ap_customer_name")
 	private WebElement nameField;
 	@FindBy(id = "ap_email")
@@ -20,9 +20,8 @@ public class RegistrationPage {
 	@FindBy(id = "continue")
 	private WebElement submitButton;
 	
-	public RegistrationPage(WebDriver driver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
+	protected RegistrationPage(WebDriver driver) {
+		super(driver);		
 	}
 	
 	public MainPage registerAccount(Account account) {

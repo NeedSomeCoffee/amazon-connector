@@ -10,7 +10,7 @@ public class AmazonApplication extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception{
-		Parent root = FXMLLoader.load(getClass().getResource("MainStage.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainStage.fxml"));
 		primaryStage.setTitle("Amazon tool");
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
