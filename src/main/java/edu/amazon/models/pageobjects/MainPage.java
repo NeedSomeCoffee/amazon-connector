@@ -5,21 +5,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import edu.amazon.interfaces.ProductSearch;
 
-public class MainPage extends AbstractPage {	
+
+public class MainPage extends AbstractPage implements ProductSearch {	
 	@FindBy(id = "twotabsearchtextbox")
 	private WebElement searchField;
 	
 	protected MainPage(WebDriver driver) {
 		super(driver);		
 	}
-	
-	public SearchResultPage searchForProduct(String asin) {
-		searchField.sendKeys(asin);
-		searchField.submit();
-		
-		return new SearchResultPage(driver);
-	}
-	
-	
 }

@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class ProductSearch {
+public class ProductSearchComponent {
 	private By locator = By.id("twotabsearchtextbox");
 	
 	public SearchResultPage searchProductByAsin(WebDriver driver, String asin) {

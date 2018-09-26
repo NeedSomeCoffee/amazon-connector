@@ -4,17 +4,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class BasePage extends AbstractPage {		
+import edu.amazon.interfaces.ProductSearch;
+
+public class BasePage extends AbstractPage implements ProductSearch {		
 	@FindBy(id = "nav-link-accountList")
 	private WebElement loginPopup;
 	
 	@FindBy(css = "#nav-flyout-ya-newCust a")
 	private WebElement createAccountButton;
-	
-	private LogonChecker loginedChecker = new LogonChecker();
-	
+		
 	public BasePage(WebDriver driver) {
 		super(driver, "https://amazon.com");		
 	}

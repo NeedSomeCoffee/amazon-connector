@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-@SuppressWarnings("restriction")
 public class MainController {
 	@FXML AnchorPane dialogWindow;
 	@FXML TextField registrationNameField;

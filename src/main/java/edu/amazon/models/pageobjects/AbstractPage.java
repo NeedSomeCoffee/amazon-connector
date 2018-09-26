@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 public abstract class AbstractPage {
+	protected static final String AMAZON_BASE_URL = "https://amazon.com";
 	protected WebDriver driver;
 	
 	protected AbstractPage(WebDriver driver, String url) {
