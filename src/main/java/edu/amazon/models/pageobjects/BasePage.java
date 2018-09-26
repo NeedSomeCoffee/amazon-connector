@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 import edu.amazon.interfaces.ProductSearch;
 
-public class BasePage extends AbstractPage implements ProductSearch {		
+public class BasePage extends PageObject implements ProductSearch {		
 	@FindBy(id = "nav-link-accountList")
 	private WebElement loginPopup;
 	

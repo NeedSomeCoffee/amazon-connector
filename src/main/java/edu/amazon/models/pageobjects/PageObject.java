@@ -4,17 +4,17 @@ import org.jsoup.Jsoup;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-public abstract class AbstractPage {
+public abstract class PageObject {
 	protected static final String AMAZON_BASE_URL = "https://amazon.com";
 	protected WebDriver driver;
 	
-	protected AbstractPage(WebDriver driver, String url) {
+	protected PageObject(WebDriver driver, String url) {
 		this.driver = driver;
 		driver.get(url);
 		PageFactory.initElements(driver, this);
 	}
 	
-	protected AbstractPage(WebDriver driver) {
+	protected PageObject(WebDriver driver) {
 		this.driver = driver;		
 		PageFactory.initElements(driver, this);
 	}

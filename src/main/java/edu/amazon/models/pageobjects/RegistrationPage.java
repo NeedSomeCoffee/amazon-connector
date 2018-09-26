@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import edu.amazon.models.Account;
 
 
-public class RegistrationPage extends AbstractPage {	
+public class RegistrationPage extends PageObject {	
 	@FindBy(id = "ap_customer_name")
 	private WebElement nameField;
 	@FindBy(id = "ap_email")

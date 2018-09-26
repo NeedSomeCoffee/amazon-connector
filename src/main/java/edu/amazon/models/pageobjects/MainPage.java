@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import edu.amazon.interfaces.ProductSearch;
 
 
-public class MainPage extends AbstractPage implements ProductSearch {	
+public class MainPage extends PageObject implements ProductSearch {	
 	@FindBy(id = "twotabsearchtextbox")
 	private WebElement searchField;
 	

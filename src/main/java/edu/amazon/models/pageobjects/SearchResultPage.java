@@ -12,7 +12,7 @@ import org.openqa.selenium.support.FindBy;
 
 import edu.amazon.interfaces.ProductSearch;
 
-public class SearchResultPage extends AbstractPage implements ProductSearch {	
+public class SearchResultPage extends PageObject implements ProductSearch {	
 	@FindBy(id = "s-results-list-atf")
 	private List<WebElement> resultTable;
 		

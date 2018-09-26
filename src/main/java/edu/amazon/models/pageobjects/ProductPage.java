@@ -6,7 +6,7 @@ import edu.amazon.interfaces.ProductSearch;
 import edu.amazon.models.Product;
 import edu.amazon.util.ProductParser;
 
-public class ProductPage extends AbstractPage implements ProductSearch {
+public class ProductPage extends PageObject implements ProductSearch {
 	
 	public ProductPage(WebDriver driver) {
 		super(driver);

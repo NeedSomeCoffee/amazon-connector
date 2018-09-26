@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import edu.amazon.models.Account;
 
-public class LoginPage extends AbstractPage {
+public class LoginPage extends PageObject {
 	@FindBy(id = "ap_email")
 	private WebElement loginField;
 	@FindBy(id = "ap_password")
