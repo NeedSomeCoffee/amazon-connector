@@ -15,7 +15,7 @@ public class BasePage extends PageObject implements ProductSearch {
 	private WebElement createAccountButton;
 		
 	public BasePage(WebDriver driver) {
-		super(driver, "https://amazon.com");		
+		super(driver, AMAZON_BASE_URL);		
 	}
 	
 	public RegistrationPage goToRegistrationPage() {		
