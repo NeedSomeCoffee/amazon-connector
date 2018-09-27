@@ -2,10 +2,12 @@ package edu.amazon.models.pageobjects;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,13 +32,15 @@ public class SearchResultPage extends PageObject implements ProductSearch {
 	 * */
 	public Optional<ProductPage> openProductFromResult(int index) {
 		Document source = Jsoup.parse(driver.getPageSource());
-		Element productContainer = source.select("#result_" + index).first();
+		Elements productContainers = source.select("li.s-result-item.celwidget:not(.s-result-item.celwidget.AdHolder)");
 		
-		if(null == productContainer) {
+		List<Element> filteredContainers = productContainers.stream().skip(2).collect(Collectors.toList());
+		
+		if(filteredContainers.isEmpty() || filteredContainers.size() <= index) {
 			return Optional.ofNullable(null);
 		}
 		
-		String productUrl = productContainer.select(".a-fixed-left-grid-col.a-col-right a").attr("href");
+		String productUrl = filteredContainers.get(index).select(".a-link-normal.s-access-detail-page.s-color-twister-title-link.a-text-normal").attr("href");
 		
 		driver.get(productUrl);
 		

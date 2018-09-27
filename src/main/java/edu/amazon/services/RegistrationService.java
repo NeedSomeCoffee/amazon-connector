@@ -4,13 +4,14 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 import edu.amazon.exceptions.RegistrationException;
+import edu.amazon.interfaces.Logging;
 import edu.amazon.models.Account;
 import edu.amazon.models.pageobjects.BasePage;
 import edu.amazon.models.pageobjects.MainPage;
 import edu.amazon.models.pageobjects.RegistrationPage;
 import edu.amazon.util.DriverProvider;
 
-public class RegistrationService {	
+public class RegistrationService implements Logging {	
 	private WebDriver driver = DriverProvider.getDriver();
 	
 	public MainPage registerUser(Account account) throws RegistrationException {	

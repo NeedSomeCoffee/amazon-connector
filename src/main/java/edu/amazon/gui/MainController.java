@@ -1,10 +1,13 @@
 package edu.amazon.gui;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 import edu.amazon.exceptions.RegistrationException;
 import edu.amazon.models.Account;
 import edu.amazon.models.Product;
+import edu.amazon.services.PurchaseService;
 import edu.amazon.services.RegistrationService;
 import edu.amazon.services.SearchService;
 import edu.amazon.util.ArgumentsValidator;
@@ -22,7 +25,7 @@ public class MainController {
 	@FXML TextField productSearchField;
 	@FXML TextField addToCartLoginField;
 	@FXML TextField addToCartPasswordField;
-	@FXML TextField addToCartAsinField;
+	@FXML TextField addToCartTextField;
 
 	@FXML Label messageLabel = new Label("Message");
 
@@ -31,7 +34,7 @@ public class MainController {
 	@FXML Button addToCartButton;
 	@FXML Button closeDialogButton;
 
-	//private Logger logger = Logger.getLogger("Controller");
+	private Logger logger = Logger.getLogger("Controller");
 
 	@FXML
 	void registerUser() {
@@ -39,7 +42,7 @@ public class MainController {
 
 		String userName = registrationNameField.getText();
 		String password = registrationPasswordField.getText();
-		String email = registrationPasswordField.getText();
+		String email = registrationEmailField.getText();
 
 		List<String> errors = ArgumentsValidator.validateRegistrationInput(userName, password, email);
 
@@ -63,7 +66,7 @@ public class MainController {
 		String input = productSearchField.getText();
 				
 		if(input.isEmpty()) {
-			messageLabel.setText("Input cannot be blank");
+			messageLabel.setText("Input can't be blank");
 			dialogWindow.setVisible(true);			
 			
 			return;
@@ -72,15 +75,35 @@ public class MainController {
 		SearchService finder = new SearchService();
 		
 		if(ArgumentsValidator.isUrl(input)) {
-			Product finded = finder.findProductByLink(input);
+			Optional<Product> finded = finder.findProductByLink(input);
+			logger.info(finded.get().toString());
 		} else {
-			Product finded = finder.findProductByText(input);
+			Optional<Product> finded = finder.findProductByText(input);
+			logger.info(finded.get().toString());
 		}
 	}
 
 	@FXML
 	void addProductToCart() {
+		String query = addToCartTextField.getText();
+		String login = addToCartLoginField.getText();
+		String password = addToCartPasswordField.getText();
+		
+		List<String> errors = ArgumentsValidator.validateAddProductInput(query, login, password);
 
+		if(!errors.isEmpty()) {			
+			messageLabel.setText(errors + " cannot be blank");
+			dialogWindow.setVisible(true);
+			return;
+		}
+		
+		PurchaseService purchaser = new PurchaseService();
+		
+		if(ArgumentsValidator.isUrl(query)) {
+			purchaser.addProductToCart(new Product().setUrl(query));
+		} else {
+			purchaser.addProductToCart(query);
+		}
 	}
 
 	@FXML

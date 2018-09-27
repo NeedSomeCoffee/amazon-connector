@@ -26,4 +26,8 @@ public abstract class PageObject {
 	public boolean isLogged(WebDriver driver) {
 		return !Jsoup.parse(driver.getPageSource()).select("#nav-flyout-ya-signin").isEmpty();		
 	}
+	
+	public WebDriver getDriver() {
+		return driver;
+	}
 }

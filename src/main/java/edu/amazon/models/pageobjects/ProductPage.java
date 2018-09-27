@@ -4,13 +4,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import edu.amazon.interfaces.Logging;
+import edu.amazon.interfaces.OpenCart;
 import edu.amazon.interfaces.ProductSearch;
+import edu.amazon.models.Account;
 import edu.amazon.models.Product;
+import edu.amazon.util.DriverProvider;
 import edu.amazon.util.ProductParser;
 
-public class ProductPage extends PageObject implements ProductSearch {
-	@FindBy(id = "add-to-cart-button-ubb")
+public class ProductPage extends PageObject implements ProductSearch, OpenCart, Logging {
+	@FindBy(css = "[id^=add-to-cart-button]")
 	private WebElement addToCartButton;
+	@FindBy(id="hlb-view-cart-announce")
+	private WebElement goToCartButton;
 	
 	public ProductPage(WebDriver driver) {
 		super(driver);
@@ -28,5 +34,11 @@ public class ProductPage extends PageObject implements ProductSearch {
 		addToCartButton.click();
 		
 		return this;
+	}
+	
+	public CartPage proceedToCart() {
+		goToCartButton.click();
+				
+		return new CartPage(driver);
 	}
 }
