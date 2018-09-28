@@ -9,9 +9,16 @@ public class DriverProvider {
 	
 	private DriverProvider () {}
 	
-	public static WebDriver getDriver () {		
+	static {
 		System.setProperty("webdriver.chrome.driver", new File("src/main/resources/drivers/chromedriver/chromedriver.exe").getAbsolutePath());
+	}
+	
+	public static WebDriver getDriver () {		
 		
-		return new ChromeDriver();
+		
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		
+		return driver;
 	}
 }

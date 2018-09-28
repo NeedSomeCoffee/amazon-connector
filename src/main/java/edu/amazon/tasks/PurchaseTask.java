@@ -1,4 +1,4 @@
-package edu.amazon.services;
+package edu.amazon.tasks;
 
 import java.util.Optional;
 
@@ -8,26 +8,41 @@ import edu.amazon.interfaces.Logging;
 import edu.amazon.models.Product;
 import edu.amazon.models.pageobjects.CartPage;
 import edu.amazon.models.pageobjects.ProductPage;
+import edu.amazon.util.ArgumentsValidator;
 import edu.amazon.util.DriverProvider;
 
-public class PurchaseService implements Logging {
+public class PurchaseTask implements Logging, Runnable {
 	private WebDriver driver;
+	private String query;
 	
-	public PurchaseService() {
+	public PurchaseTask(String query) {
 		driver = DriverProvider.getDriver();
+		this.query = query;
+	}
+
+	@Override
+	public void run() {
+		if(ArgumentsValidator.isUrl(query)) {
+			addProductToCart(new Product().setUrl(query));
+		} else {
+			addProductToCart();
+		}
+		
 	}
 	
-	public CartPage addProductToCart(String asin) {
-		SearchService search = new SearchService(driver);
+	public void addProductToCart() {
+		SearchTask search = new SearchTask(driver);
 		
-		Optional<ProductPage> productPage = search.openProductPageByText(asin);
+		Optional<ProductPage> productPage = search.openProductPageByText(query);
 		
 		if (productPage.isPresent()) {
-			return productPage.get().addProductToCart().proceedToCart();			
+			ProductPage page = productPage.get();
+			
+			if(page.addProductToCart()) {
+				page.proceedToCart();	
+			}					
 		} else {
-			logger.warning("Product hasn't been found!");
-			driver.quit();
-			return null;
+			logger.warning("Product hasn't been found!");			
 		}
 	}
 	
@@ -45,4 +60,5 @@ public class PurchaseService implements Logging {
 		productPage.addProductToCart();
 		return productPage.proceedToCart();
 	}
+
 }

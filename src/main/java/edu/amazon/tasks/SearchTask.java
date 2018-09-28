@@ -1,4 +1,4 @@
-package edu.amazon.services;
+package edu.amazon.tasks;
 
 import java.util.Optional;
 
@@ -11,14 +11,14 @@ import edu.amazon.models.pageobjects.ProductPage;
 import edu.amazon.models.pageobjects.SearchResultPage;
 import edu.amazon.util.DriverProvider;
 
-public class SearchService implements Logging {
+public class SearchTask implements Logging {
 	private WebDriver driver;
 	
-	public SearchService() {
+	public SearchTask() {
 		driver  = DriverProvider.getDriver();
 	}
 	
-	public SearchService(WebDriver driver) {
+	public SearchTask(WebDriver driver) {
 		this.driver = driver;
 	}
 	

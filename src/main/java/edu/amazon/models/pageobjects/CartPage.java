@@ -4,10 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import edu.amazon.interfaces.OpenCart;
 import edu.amazon.interfaces.ProductSearch;
 import edu.amazon.models.Account;
 
-public class CartPage extends PageObject implements ProductSearch {
+public class CartPage extends PageObject implements ProductSearch, OpenCart {
 	@FindBy(name = "proceedToCheckout")
 	private WebElement checkoutButton;
 	

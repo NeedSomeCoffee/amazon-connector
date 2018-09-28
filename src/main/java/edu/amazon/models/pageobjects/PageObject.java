@@ -4,9 +4,11 @@ import org.jsoup.Jsoup;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-public abstract class PageObject {
+import edu.amazon.interfaces.Logging;
+
+public abstract class PageObject implements Logging {
 	protected static final String AMAZON_BASE_URL = "https://amazon.com";
-	protected WebDriver driver;
+	protected volatile WebDriver driver;
 	
 	protected PageObject(WebDriver driver, String url) {
 		this.driver = driver;

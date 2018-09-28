@@ -3,12 +3,12 @@ package edu.amazon.models.pageobjects;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
+import edu.amazon.interfaces.OpenCart;
 import edu.amazon.interfaces.ProductSearch;
 
 
-public class MainPage extends PageObject implements ProductSearch {	
+public class MainPage extends PageObject implements ProductSearch, OpenCart {	
 	@FindBy(id = "twotabsearchtextbox")
 	private WebElement searchField;
 	

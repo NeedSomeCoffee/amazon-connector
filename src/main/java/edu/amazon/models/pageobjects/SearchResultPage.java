@@ -6,15 +6,16 @@ import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import edu.amazon.interfaces.OpenCart;
 import edu.amazon.interfaces.ProductSearch;
+import edu.amazon.util.DriverProvider;
 
-public class SearchResultPage extends PageObject implements ProductSearch {	
+public class SearchResultPage extends PageObject implements ProductSearch, OpenCart {	
 	@FindBy(id = "s-results-list-atf")
 	private List<WebElement> resultTable;
 		
@@ -32,17 +33,17 @@ public class SearchResultPage extends PageObject implements ProductSearch {
 	 * */
 	public Optional<ProductPage> openProductFromResult(int index) {
 		Document source = Jsoup.parse(driver.getPageSource());
-		Elements productContainers = source.select("li.s-result-item.celwidget:not(.s-result-item.celwidget.AdHolder)");
+		Elements productContainers = source.select("li.s-result-item.celwidget:not(.s-result-item.celwidget.AdHolder):not(.s-result-item.celwidget.acs-private-brands-container-background)");
+				
+		List<String> productUrls = productContainers.select("a.a-link-normal.s-access-detail-page.s-color-twister-title-link.a-text-normal")
+														.stream().map(E -> E.attr("href"))
+														.collect(Collectors.toList());
 		
-		List<Element> filteredContainers = productContainers.stream().skip(2).collect(Collectors.toList());
-		
-		if(filteredContainers.isEmpty() || filteredContainers.size() <= index) {
+		if(productUrls.isEmpty() || productUrls.size() <= index) {
 			return Optional.ofNullable(null);
 		}
 		
-		String productUrl = filteredContainers.get(index).select(".a-link-normal.s-access-detail-page.s-color-twister-title-link.a-text-normal").attr("href");
-		
-		driver.get(productUrl);
+		driver.get(productUrls.get(index));
 		
 		return Optional.of(new ProductPage(driver));
 		

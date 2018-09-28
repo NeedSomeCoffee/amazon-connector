@@ -3,19 +3,21 @@ package edu.amazon.gui;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
+import static java.util.concurrent.CompletableFuture.runAsync;
 
-import edu.amazon.exceptions.RegistrationException;
 import edu.amazon.models.Account;
 import edu.amazon.models.Product;
-import edu.amazon.services.PurchaseService;
-import edu.amazon.services.RegistrationService;
-import edu.amazon.services.SearchService;
+import edu.amazon.tasks.PurchaseTask;
+import edu.amazon.tasks.RegistrationTask;
+import edu.amazon.tasks.SearchTask;
 import edu.amazon.util.ArgumentsValidator;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+
 
 public class MainController {
 	@FXML AnchorPane dialogWindow;
@@ -54,12 +56,13 @@ public class MainController {
 
 		Account account = new Account(userName, password, email);
 
-		if(proceedRegistration(account)){
+		RegistrationTask register = new RegistrationTask(account);
 
-			messageLabel.setText("Registration finished");
-			dialogWindow.setVisible(true);
+		
+		runTask(register, proceedRegistrationButton);
+
 		}
-	}
+	
 
 	@FXML
 	void searchProduct() {
@@ -72,7 +75,7 @@ public class MainController {
 			return;
 		}
 		
-		SearchService finder = new SearchService();
+		SearchTask finder = new SearchTask();
 		
 		if(ArgumentsValidator.isUrl(input)) {
 			Optional<Product> finded = finder.findProductByLink(input);
@@ -97,13 +100,9 @@ public class MainController {
 			return;
 		}
 		
-		PurchaseService purchaser = new PurchaseService();
+		PurchaseTask purchaser = new PurchaseTask(query);
 		
-		if(ArgumentsValidator.isUrl(query)) {
-			purchaser.addProductToCart(new Product().setUrl(query));
-		} else {
-			purchaser.addProductToCart(query);
-		}
+		runTask(purchaser, addToCartButton) ;
 	}
 
 	@FXML
@@ -111,19 +110,10 @@ public class MainController {
 		dialogWindow.setVisible(false);
 	}
 
-
-	private boolean proceedRegistration(Account account) {
-		RegistrationService register = new RegistrationService();
-
-		try {
-			register.registerUser(account);
-		} catch (RegistrationException e) {
-			messageLabel.setText("Error on registering user: \n" + e.getMessage());
-			dialogWindow.setVisible(true);
-			return false;
-		}
-
-		return true;
-	}
+	
+	private void runTask(Runnable task, Node button) {
+	    button.setDisable(true);
+	    runAsync(task).whenComplete((a, b) -> button.setDisable(false));
+	  }
 
 }
