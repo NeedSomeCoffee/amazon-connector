@@ -28,6 +28,17 @@ public class ProductParser {
 		return product;
 	}
 	
+	public static Product parseProduct(Document doc) {		
+		Product product = new Product();
+		
+		product.setTitle(parseProductTitle(doc))
+				.setDescription(parseProductDescription(doc))
+				.setPrice(parseProductPrice(doc))
+				.setFeatures(parseProductFeatures(doc));
+				
+		return product;
+	}
+	
 
 	private static String parseProductTitle(Document doc) {
 		Elements selected = doc.select("#productTitle");

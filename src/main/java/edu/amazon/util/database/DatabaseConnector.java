@@ -2,6 +2,7 @@ package edu.amazon.util.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class DatabaseConnector implements Logging {
 		}
 	}
 	
-	//TODO REwrite to connection pool!!!!
+	//TODO Rewrite to connection pool!!!!
 	
 	public static Optional<Connection> getConnection() {
 		try {
@@ -30,4 +31,5 @@ public class DatabaseConnector implements Logging {
 			return Optional.ofNullable(null);
 		}
 	}	
+
 }
