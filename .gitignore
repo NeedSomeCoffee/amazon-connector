@@ -8,7 +8,6 @@
 .project
 .settings/*
 .classpath
-pom.xml
 
 /target/*
 /data/*
