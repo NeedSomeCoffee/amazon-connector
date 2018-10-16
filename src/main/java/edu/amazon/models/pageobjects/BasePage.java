@@ -5,8 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
-import edu.amazon.interfaces.OpenCart;
-import edu.amazon.interfaces.ProductSearch;
+import edu.amazon.interfaces.pagecomponents.OpenCart;
+import edu.amazon.interfaces.pagecomponents.ProductSearch;
 
 public class BasePage extends PageObject implements ProductSearch, OpenCart {		
 	@FindBy(id = "nav-link-accountList")

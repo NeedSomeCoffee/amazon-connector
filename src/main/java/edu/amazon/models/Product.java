@@ -3,12 +3,17 @@ package edu.amazon.models;
 import java.util.List;
 
 public class Product {
+	private Integer id;
 	private String title;
 	private String description;
-	private String price;
+	private Double price;
 	private String url;
 	private List<Feature> features;
 
+	public Integer getId() {
+		return id;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -21,7 +26,7 @@ public class Product {
 		return url;
 	}
 
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
@@ -29,6 +34,12 @@ public class Product {
 		return features;
 	}
 
+	public Product setId(Integer id) {
+		this.id = id;
+		return this;
+	}
+	
+	
 	public Product setTitle(String title) {
 		this.title = title;
 		return this;
@@ -39,7 +50,7 @@ public class Product {
 		return this;
 	}
 
-	public Product setPrice(String price) {
+	public Product setPrice(Double price) {
 		this.price = price;
 		return this;
 	}
@@ -57,12 +68,16 @@ public class Product {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Product [title=");
+		builder.append("Product [id=");
+		builder.append(id);
+		builder.append(", title=");
 		builder.append(title);
 		builder.append(", description=");
 		builder.append(description);
 		builder.append(", price=");
 		builder.append(price);
+		builder.append(", url=");
+		builder.append(url);
 		builder.append(", features=");
 		builder.append(features);
 		builder.append("]");

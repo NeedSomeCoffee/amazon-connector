@@ -5,8 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import edu.amazon.interfaces.OpenCart;
-import edu.amazon.interfaces.ProductSearch;
+import edu.amazon.interfaces.pagecomponents.OpenCart;
+import edu.amazon.interfaces.pagecomponents.ProductSearch;
 import edu.amazon.models.Product;
 import edu.amazon.util.ProductParser;
 

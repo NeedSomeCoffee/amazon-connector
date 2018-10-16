@@ -63,7 +63,7 @@ public class ProductParser {
 		return description;
 	}
 
-	private static String parseProductPrice(Document doc) {
+	private static Double parseProductPrice(Document doc) {
 		Elements selected = doc.select("#priceblock_ourprice");
 		String price = "";
 		
@@ -72,7 +72,7 @@ public class ProductParser {
 			price = selected.first().text();
 		}
 		
-		return price;
+		return Double.valueOf(price);
 	}
 
 	private static List<Feature> parseProductFeatures(Document doc) {

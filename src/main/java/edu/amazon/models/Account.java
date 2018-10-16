@@ -1,14 +1,21 @@
 package edu.amazon.models;
 
 public class Account {
+	private Integer id;
 	private String login;
 	private String password;
 	private String email;
-		
+	
+	public Account() {}
+	
 	public Account(String login, String password, String email) {
 		this.login = login;
 		this.password = password;
 		this.email = email;
+	}
+	
+	public Integer getId() {
+		return id;
 	}
 
 	public String getLogin() {
@@ -21,6 +28,11 @@ public class Account {
 	
 	public String getEmail() {
 		return email;
+	}
+	
+	public Account setId(Integer id) {
+		this.id = id;
+		return this;
 	}
 
 	public Account setLogin(String login) {
@@ -41,7 +53,9 @@ public class Account {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Account [login=");
+		builder.append("Account [id=");
+		builder.append(id);
+		builder.append(", login=");
 		builder.append(login);
 		builder.append(", password=");
 		builder.append(password);

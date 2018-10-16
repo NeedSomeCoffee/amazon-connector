@@ -1,4 +1,4 @@
-package edu.amazon.interfaces;
+package edu.amazon.interfaces.pagecomponents;
 
 import org.openqa.selenium.WebDriver;
 
